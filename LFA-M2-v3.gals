@@ -1,0 +1,57 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = Stream
+Parser = SLR
+#RegularDefinitions
+
+#Tokens
+adicao: \+
+subtracao: \-
+multiplicacao: \*
+divisao: /
+exponenciacao: \^
+log: "log"
+imprime: "print"
+recebe: "="
+abrePar: "("
+fechaPar: ")"
+fim: ";"
+variavel: [a-zA-Z]+
+binario: [0-1]+
+ : [\ \n\t\r\s]+
+#NonTerminals
+<programa>
+<instrucao>
+<calcular>
+<multiplicar>
+<elevar>
+<valor>
+<logaritmo>
+#Grammar
+<programa> ::= <programa> <instrucao> | <instrucao>;
+<instrucao> ::= imprime abrePar variavel #10 fechaPar fim #1
+              | variavel #2 recebe <calcular> fim #3;
+
+<calcular> ::= <calcular> adicao <multiplicar> #4
+             | <calcular> subtracao <multiplicar> #5
+             | <multiplicar>;
+<multiplicar> ::= <multiplicar> multiplicacao <elevar> #6
+                | <multiplicar> divisao <elevar> #7
+                | <elevar>;
+
+<elevar> ::= <valor> exponenciacao <elevar> #8
+           | <valor>;
+
+<valor> ::= binario #9 
+          | variavel #10 
+          | abrePar <calcular> fechaPar 
+          | <logaritmo>;
+
+<logaritmo> ::= log abrePar <calcular> fechaPar #11;
