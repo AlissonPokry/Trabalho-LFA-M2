@@ -78,9 +78,3 @@ No Windows PowerShell:
 ```powershell
 java -cp build\classes main.Main
 ```
-
-## Observações
-
-- A pasta `build/` não deve ser versionada, pois contém arquivos gerados.
-- Arquivos `.class` também não devem ser versionados.
-- `SemanticoBackup.java` é apenas cópia auxiliar e está no `.gitignore`.
