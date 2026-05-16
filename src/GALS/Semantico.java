@@ -61,6 +61,9 @@ public class Semantico implements Constants
                     break;
                 case 11: //log
                     a = stack.pop();
+                    if (a <= 0) {
+                        break;
+                    }
                     Double log = Math.log(a) / Math.log(2);
                     stack.push(log.intValue());
                     break;
